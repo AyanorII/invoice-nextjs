@@ -1,16 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit"
 import { PaletteMode } from "@mui/material";
+import { createSlice } from "@reduxjs/toolkit";
 export interface ThemeState {
   mode: PaletteMode;
 }
 
-const prefersDarkMode =
-  window && window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? "dark"
-    : "light";
-
 const initialState: ThemeState = {
-  mode: prefersDarkMode
+  mode: "light",
 };
 const themeSlice = createSlice({
   name: "theme",
@@ -18,9 +13,9 @@ const themeSlice = createSlice({
   reducers: {
     toggleMode: (state) => {
       state.mode = state.mode === "light" ? "dark" : "light";
-    }
-  }
-})
+    },
+  },
+});
 
-export const { toggleMode } = themeSlice.actions
-export default themeSlice.reducer
+export const { toggleMode } = themeSlice.actions;
+export default themeSlice.reducer;
