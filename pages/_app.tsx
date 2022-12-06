@@ -1,4 +1,4 @@
-import { CssBaseline, Grid } from "@mui/material";
+import { CssBaseline, Stack } from "@mui/material";
 import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 import { Header } from "../components/Header";
@@ -11,14 +11,10 @@ function MyApp({ Component, pageProps }: AppProps) {
     <Provider store={store}>
       <ThemeProvider>
         <CssBaseline />
-        <Grid container minHeight="100vh">
-          <Grid item xs={12} lg="auto">
-            <Header />
-          </Grid>
-          <Grid item xs={12} lg>
-            <Component {...pageProps} />
-          </Grid>
-        </Grid>
+        <Stack flexDirection={{ lg: "row" }} minHeight="100vh">
+          <Header />
+          <Component {...pageProps} />
+        </Stack>
       </ThemeProvider>
     </Provider>
   );

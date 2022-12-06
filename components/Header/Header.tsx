@@ -9,7 +9,6 @@ type Props = {};
 const Header = ({}: Props) => {
   return (
     <Stack
-      height={{ lg: "100%" }}
       flexDirection={{ xs: "row", lg: "column" }}
       alignItems="center"
       sx={{
