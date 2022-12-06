@@ -12,10 +12,10 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ThemeProvider>
         <CssBaseline />
         <Grid container minHeight="100vh">
-          <Grid item xs={12} lg={1}>
+          <Grid item xs={12} lg="auto">
             <Header />
           </Grid>
-          <Grid item xs={12} lg={11}>
+          <Grid item xs={12} lg>
             <Component {...pageProps} />
           </Grid>
         </Grid>
