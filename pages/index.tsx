@@ -1,35 +1,33 @@
-import { Button } from "@mui/material";
-import type { NextPage } from "next";
+import { Container } from "@mui/material";
+import axios from "axios";
+import type { GetServerSideProps, NextPage } from "next";
 import { useDispatch } from "react-redux";
-import { toggleMode } from "../store/themeSlice";
+import Top from "../components/Top";
+import { Invoice } from "../lib/interfaces";
 
-const Home: NextPage = () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const url = `${process.env.NEXT_PUBLIC_API_URL!}/invoices`;
+  const response = await axios.get(url);
+  const invoices = response.data;
+
+  return {
+    props: {
+      invoices,
+    },
+  };
+};
+
+type Props = {
+  invoices: Invoice[];
+};
+
+const Home: NextPage<Props> = ({ invoices }) => {
   const dispatch = useDispatch();
 
   return (
-    <>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => {
-          dispatch(toggleMode());
-        }}
-      >
-        Primary
-      </Button>
-      <Button variant="contained" color="error">
-        Error
-      </Button>
-      <Button variant="contained" color="paid">
-        Paid
-      </Button>
-      <Button variant="contained" color="pending">
-        Pending
-      </Button>
-      <Button variant="contained" color="draft">
-        Draft
-      </Button>
-    </>
+    <Container  maxWidth="md" sx={{marginTop: {xs: 4, md: 7, lg: 9}}}>
+      <Top numberOfInvoices={invoices.length} />
+    </Container>
   );
 };
 
