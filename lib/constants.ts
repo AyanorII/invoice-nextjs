@@ -31,19 +31,25 @@ export const TEXT_COLOR = {
 /* -------------------------- Invoice status colors ------------------------- */
 export const PAID_COLOR = {
   main: "#33D69F",
-  background: "#33D69F90",
+  background: "#33D69F50",
 };
 export const PENDING_COLOR = {
   main: "#FF8F00",
-  background: "#FF8F0090",
+  background: "#FF8F0050",
 };
 export const DRAFT_COLOR = {
   light: {
     main: "#373B53",
-    background: "#373B5390",
+    background: "#373B5350",
   },
   dark: {
     main: "#DFE3FA",
-    background: "#DFE3FA90",
+    background: "#DFE3FA50",
   },
 };
+
+export const COLORS_MAP = {
+  paid: PAID_COLOR,
+  pending: PENDING_COLOR,
+  draft: DRAFT_COLOR,
+}
