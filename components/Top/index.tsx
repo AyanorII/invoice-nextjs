@@ -9,7 +9,7 @@ type Props = {
 const Top = ({ numberOfInvoices }: Props) => {
 
   return (
-    <Stack flexDirection="row" gap={2} alignItems="center">
+    <Stack flexDirection="row" gap={2} alignItems="center" marginBottom={5}>
       <NumberOfInvoices number={numberOfInvoices} />
       <Stack
         flexGrow={1}

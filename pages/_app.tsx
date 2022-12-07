@@ -11,7 +11,11 @@ function MyApp({ Component, pageProps }: AppProps) {
     <Provider store={store}>
       <ThemeProvider>
         <CssBaseline />
-        <Stack flexDirection={{ lg: "row" }} minHeight="100vh">
+        <Stack
+          flexDirection={{ lg: "row" }}
+          minHeight="100vh"
+          overflow="hidden"
+        >
           <Header />
           <Component {...pageProps} />
         </Stack>
