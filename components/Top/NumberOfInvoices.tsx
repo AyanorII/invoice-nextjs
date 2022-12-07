@@ -18,11 +18,11 @@ const NumberOfInvoices = ({ number }: Props) => {
     <Stack>
       <Typography
         fontWeight="bold"
-        sx={{ fontSize: { xs: "1.25rem", sm: "2rem" } }}
+        variant="h4"
       >
         Invoices
       </Typography>
-      <Typography sx={{ fontSize: "0.75rem" }}>
+      <Typography variant="body1">
         {content}
       </Typography>
     </Stack>
