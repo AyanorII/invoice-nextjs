@@ -1,14 +1,15 @@
 import { Stack } from "@mui/material";
 import FilterInvoice from "./FilterInvoice";
+import NewInvoiceButton from "./NewInvoiceButton";
 import NumberOfInvoices from "./NumberOfInvoices";
-
 type Props = {
   numberOfInvoices: number;
 };
 
 const Top = ({ numberOfInvoices }: Props) => {
+
   return (
-    <Stack flexDirection="row" gap={2}>
+    <Stack flexDirection="row" gap={2} alignItems="center">
       <NumberOfInvoices number={numberOfInvoices} />
       <Stack
         flexGrow={1}
@@ -18,6 +19,7 @@ const Top = ({ numberOfInvoices }: Props) => {
       >
         <FilterInvoice />
       </Stack>
+      <NewInvoiceButton />
     </Stack>
   );
 };
