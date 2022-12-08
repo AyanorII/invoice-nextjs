@@ -15,6 +15,9 @@ function MyApp({ Component, pageProps }: AppProps) {
           flexDirection={{ lg: "row" }}
           minHeight="100vh"
           overflow="hidden"
+          sx={{
+            backgroundColor: (theme) => theme.palette.background.default,
+          }}
         >
           <Header />
           <Component {...pageProps} />

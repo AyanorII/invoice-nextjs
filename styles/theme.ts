@@ -69,7 +69,7 @@ export const getDesignTokens = (mode: PaletteMode) => ({
       ? {
           background: {
             paper: BACKGROUND_COLOR.light.paper,
-            main: BACKGROUND_COLOR.light.main,
+            default: BACKGROUND_COLOR.light.main,
           },
           text: {
             primary: TEXT_COLOR.light.primary,
@@ -83,7 +83,7 @@ export const getDesignTokens = (mode: PaletteMode) => ({
       : {
           background: {
             paper: BACKGROUND_COLOR.dark.paper,
-            main: BACKGROUND_COLOR.dark.main,
+            default: BACKGROUND_COLOR.dark.main,
           },
           text: {
             primary: TEXT_COLOR.dark.primary,
