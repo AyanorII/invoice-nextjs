@@ -2,6 +2,7 @@ import { Container } from "@mui/material";
 import axios from "axios";
 import type { GetServerSideProps, NextPage } from "next";
 import { useDispatch } from "react-redux";
+import InvoicesList from "../components/Invoices/InvoicesList";
 import NoInvoices from "../components/NoInvoices";
 import Top from "../components/Top";
 import { Invoice } from "../lib/interfaces";
@@ -24,14 +25,17 @@ type Props = {
 
 const Home: NextPage<Props> = ({ invoices }) => {
   const dispatch = useDispatch();
-
   return (
     <Container
       maxWidth="md"
       sx={{ marginTop: { xs: 4, md: 7, lg: 9 }, flexGrow: 1 }}
     >
       <Top numberOfInvoices={invoices.length} />
-      {invoices.length === 0 && <NoInvoices />}
+      {invoices.length === 0 ? (
+        <NoInvoices />
+      ) : (
+        <InvoicesList invoices={invoices} />
+      )}
     </Container>
   );
 };
