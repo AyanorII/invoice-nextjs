@@ -29,7 +29,7 @@ const InvoiceCard = ({ invoice }: Props) => {
         },
       }}
     >
-      <Link href={`invoices/${code}`}>
+      <Link href={`/${code}`}>
         <CardContent sx={{ padding: 3 }}>
           <Grid
             container
