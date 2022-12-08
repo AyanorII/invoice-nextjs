@@ -44,4 +44,5 @@ export interface Invoice {
   paymentDue: Date
   client: Client
   sender: Address
+  createdAt: Date
 }
