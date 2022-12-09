@@ -12,8 +12,16 @@ type Props = {
 };
 
 const Info = ({ invoice }: Props) => {
-  const { code, description, sender, createdAt, paymentDue, client, items } =
-    invoice;
+  const {
+    code,
+    description,
+    sender,
+    createdAt,
+    paymentDue,
+    client,
+    items,
+    total,
+  } = invoice;
 
   return (
     <Paper>
@@ -54,7 +62,7 @@ const Info = ({ invoice }: Props) => {
         </Grid>
         {/* --------------------------- Sent To ---------------------------- */}
       </Grid>
-      <ItemsList items={items} />
+      <ItemsList items={items} total={total} />
     </Paper>
   );
 };

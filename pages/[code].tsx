@@ -4,6 +4,7 @@ import { GetServerSideProps, NextPage } from "next";
 import GoBackButton from "../components/GoBackButton";
 import Actions from "../components/InvoicesDetails/Actions";
 import Header from "../components/InvoicesDetails/Header";
+import Info from "../components/InvoicesDetails/Info";
 import { Invoice } from "../lib/interfaces";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -30,17 +31,21 @@ const InvoiceDetailsPage: NextPage<Props> = ({ invoice }) => {
   );
 
   return (
-    <Box>
-      <Container maxWidth="md" sx={{marginTop: 3}}>
+    <>
+      <Container
+        maxWidth="md"
+        sx={{ marginBlock: { xs: "2rem 8rem", sm: "2rem 4rem" } }}
+      >
         <GoBackButton href="/" />
         <Header invoice={invoice} />
+        <Info invoice={invoice} />
       </Container>
       {isMobile && (
         <Box
           sx={{
             marginTop: 3,
             padding: 3,
-            position: "absolute",
+            position: "fixed",
             bottom: 0,
             left: 0,
             right: 0,
@@ -51,7 +56,7 @@ const InvoiceDetailsPage: NextPage<Props> = ({ invoice }) => {
           <Actions />
         </Box>
       )}
-    </Box>
+    </>
   );
 };
 
