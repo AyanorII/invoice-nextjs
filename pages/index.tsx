@@ -1,7 +1,6 @@
 import { Container } from "@mui/material";
 import axios from "axios";
 import type { GetServerSideProps, NextPage } from "next";
-import { useDispatch } from "react-redux";
 import InvoicesList from "../components/Invoices/InvoicesList";
 import NoInvoices from "../components/NoInvoices";
 import Top from "../components/Top";
@@ -24,7 +23,6 @@ type Props = {
 };
 
 const Home: NextPage<Props> = ({ invoices }) => {
-  const dispatch = useDispatch();
   return (
     <Container
       maxWidth="md"
