@@ -1,7 +1,7 @@
-import { CssBaseline, Stack } from "@mui/material";
+import { CssBaseline, useMediaQuery } from "@mui/material";
 import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
-import { Header } from "../components/Header";
+import Layout from "../components/Layout";
 import ThemeProvider from "../components/ThemeProvider";
 import { store } from "../store/store";
 import "../styles/globals.css";
@@ -11,17 +11,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     <Provider store={store}>
       <ThemeProvider>
         <CssBaseline />
-        <Stack
-          flexDirection={{ lg: "row" }}
-          minHeight="100vh"
-          overflow="hidden"
-          sx={{
-            backgroundColor: (theme) => theme.palette.background.default,
-          }}
-        >
-          <Header />
+        <Layout>
           <Component {...pageProps} />
-        </Stack>
+        </Layout>
       </ThemeProvider>
     </Provider>
   );
