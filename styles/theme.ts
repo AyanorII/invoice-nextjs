@@ -50,6 +50,14 @@ const components: ThemeOptions = {
         },
       },
     },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          padding: "1.5rem",
+          borderRadius: "8px"
+        }
+      }
+    }
   },
 };
 
