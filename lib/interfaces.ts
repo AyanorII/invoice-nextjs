@@ -45,4 +45,5 @@ export interface Invoice {
   client: Client
   sender: Address
   createdAt: Date
+  items: Item[]
 }
