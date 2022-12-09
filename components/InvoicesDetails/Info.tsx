@@ -4,6 +4,7 @@ import InvoiceCode from "../Invoices/InvoiceCode";
 import AddressInfo from "./AddressInfo";
 import BillTo from "./BillTo";
 import DateInfo from "./DateInfo";
+import ItemsList from "./ItemsList";
 import SentTo from "./SentTo";
 
 type Props = {
@@ -11,14 +12,15 @@ type Props = {
 };
 
 const Info = ({ invoice }: Props) => {
-  const { code, description, sender, createdAt, paymentDue, client } = invoice;
+  const { code, description, sender, createdAt, paymentDue, client, items } =
+    invoice;
 
   return (
-    <Paper sx={{ padding: 3 }}>
+    <Paper>
       <Grid container rowGap={2}>
         {/* ---------------------- Code / Description ---------------------- */}
         <Grid item xs={12} sm={6}>
-          <InvoiceCode>{code}</InvoiceCode>
+          <InvoiceCode variant="h5">{code}</InvoiceCode>
           <Typography color="text.secondary">{description}</Typography>
         </Grid>
         {/* ---------------------- Code / Description ---------------------- */}
@@ -52,6 +54,7 @@ const Info = ({ invoice }: Props) => {
         </Grid>
         {/* --------------------------- Sent To ---------------------------- */}
       </Grid>
+      <ItemsList items={items} />
     </Paper>
   );
 };

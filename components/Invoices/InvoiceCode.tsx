@@ -2,12 +2,13 @@ import { Typography } from "@mui/material";
 
 type Props = {
   children: string;
+  variant?: "h5" | "body1";
 };
 
-const InvoiceCode = ({ children }: Props) => {
+const InvoiceCode = ({ children, variant = "body1" }: Props) => {
   return (
-    <Typography variant="body1" fontWeight="bold" textTransform="uppercase">
-      <Typography component="span" sx={{ color: "#7E88C3" }}>
+    <Typography variant={variant} fontWeight="bold" textTransform="uppercase" >
+      <Typography variant={variant} display="inline" sx={{ color: "#7E88C3" }}>
         #
       </Typography>
       {children}

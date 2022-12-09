@@ -20,7 +20,7 @@ const Header = ({ invoice }: Props) => {
   );
 
   return (
-    <Paper sx={{ padding: 3, width: "100%", marginBlock: 3 }}>
+    <Paper sx={{ width: "100%", marginBlock: 3 }}>
       <Stack flexDirection="row" gap={2}>
         <Status invoice={invoice} />
         {!isMobile && (
