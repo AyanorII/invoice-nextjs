@@ -52,4 +52,13 @@ export const COLORS_MAP = {
   paid: PAID_COLOR,
   pending: PENDING_COLOR,
   draft: DRAFT_COLOR,
-}
+};
+
+/* ---------------------------------- Items --------------------------------- */
+export const ITEM_NAME_PLACEHOLDERS = [
+  "Banner Design",
+  "Graphic Design",
+  "Logo Design",
+  "Business Card Design",
+  "Social Media Design",
+];
