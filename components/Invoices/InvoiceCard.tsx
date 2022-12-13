@@ -24,13 +24,14 @@ const InvoiceCard = ({ invoice }: Props) => {
         borderRadius: "8px",
         boxShadow: 3,
         transition: "transform 0.2s ease-in-out",
+        padding: 0,
         "&:hover": {
           transform: "scale(1.025)",
         },
       }}
     >
       <Link href={`/${code}`}>
-        <CardContent sx={{ padding: 3 }}>
+        <CardContent sx={{padding: 3}}>
           <Grid
             container
             gap={{ sm: 1, md: 5 }}
