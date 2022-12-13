@@ -47,3 +47,19 @@ export interface Invoice {
   createdAt: Date
   items: Item[]
 }
+export interface SelectOption {
+  id: number;
+  label: string;
+}
+
+export interface InputProps {
+  name: string;
+  label: string;
+  error: boolean;
+  placeholder?: string;
+  type?: "text" | "date" | "select" | "number";
+  options?: SelectOption[];
+  disabled?: boolean;
+  value?: string | number | Date;
+  onChange?: (e: any) => void;
+};
