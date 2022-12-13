@@ -7,8 +7,13 @@ type Props = {
 
 const InvoiceCode = ({ children, variant = "body1" }: Props) => {
   return (
-    <Typography variant={variant} fontWeight="bold" textTransform="uppercase" >
-      <Typography variant={variant} display="inline" sx={{ color: "#7E88C3" }}>
+    <Typography variant={variant} fontWeight="bold" textTransform="uppercase">
+      <Typography
+        variant={variant}
+        component="span"
+        display="inline"
+        sx={{ color: "#7E88C3" }}
+      >
         #
       </Typography>
       {children}
