@@ -13,7 +13,7 @@ const GoBackButton = ({ href, onClick }: Props) => {
       href={href}
       startIcon={<LeftIcon color="primary" />}
       onClick={onClick}
-      sx={{ color: (theme) => theme.palette.text.primary }}
+      sx={{ color: "text.primary", paddingLeft: 0 }}
     >
       Go Back
     </Button>
