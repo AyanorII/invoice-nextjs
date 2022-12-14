@@ -1,7 +1,10 @@
 import { SxProps, Theme } from "@mui/material";
 
 export const stackStyles: SxProps<Theme> = {
-  background: (theme: Theme) => theme.palette.background.paper,
+  background: (theme: Theme) => ({
+    xs: theme.palette.background.paper,
+    sm: "transparent",
+  }),
   marginInline: -3,
   marginBottom: -3,
   marginTop: 3,
@@ -17,22 +20,9 @@ const baseButtonStyles: SxProps<Theme> = {
   paddingBlock: 1.5,
 };
 
-export const discardButtonStyles: SxProps<Theme> = {
-  ...baseButtonStyles,
-  color: (theme: Theme) => theme.palette.text.secondary,
-  background: (theme: Theme) =>
-    theme.palette.mode === "dark" ? "#252945" : "#F9FAFE",
-  minWidth: "84px",
-
-  "&:hover": {
-    color: (theme: Theme) => "#7E88C3",
-    backgroundColor: (theme: Theme) =>
-      theme.palette.mode === "dark" ? "#FFFFFF" : "#DFE3FA",
-  },
-};
-
 export const saveAsDraftButtonStyles: SxProps<Theme> = {
   ...baseButtonStyles,
+  marginLeft: {xs: 0, sm: "auto"},
   backgroundColor: (theme: Theme) => theme.palette.draft.background,
   color: (theme: Theme) => theme.palette.text.secondary,
 

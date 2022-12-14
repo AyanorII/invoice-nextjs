@@ -1,11 +1,7 @@
 import { Button, Stack } from "@mui/material";
 import { useFormContext } from "react-hook-form";
 import { InvoiceStatus } from "../../../lib/interfaces";
-import {
-  discardButtonStyles,
-  saveAsDraftButtonStyles,
-  stackStyles,
-} from "./styles";
+import { saveAsDraftButtonStyles, stackStyles } from "./styles";
 
 type Props = {
   handleClose: () => void;
@@ -21,7 +17,7 @@ const Actions = ({ isBottomOfPage, handleClose }: Props) => {
 
   const handleSaveAndSend = () => {
     setValue("status", InvoiceStatus.PENDING);
-  }
+  };
 
   return (
     <Stack
@@ -36,13 +32,13 @@ const Actions = ({ isBottomOfPage, handleClose }: Props) => {
     >
       <Button
         variant="contained"
+        color="info"
         onClick={() => {
           handleClose();
           reset({
             keepDefaultValues: true,
           });
         }}
-        sx={discardButtonStyles}
       >
         Discard
       </Button>

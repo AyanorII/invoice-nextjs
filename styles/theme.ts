@@ -54,10 +54,10 @@ const components: ThemeOptions = {
       styleOverrides: {
         root: {
           padding: "1.5rem",
-          borderRadius: "8px"
-        }
-      }
-    }
+          borderRadius: "8px",
+        },
+      },
+    },
   },
 };
 
@@ -69,7 +69,23 @@ const typography: ThemeOptions = {
 
 export const getDesignTokens = (mode: PaletteMode) => ({
   ...typography,
-  ...components,
+  components: {
+    ...components.components,
+    MuiButton: {
+      styleOverrides: {
+        ...components.components!.MuiButton!.styleOverrides,
+        containedInfo: {
+          background: mode === "light" ? "#F9FAFE" : "#252945",
+          color: mode === "light" ? "#7E88C3" : "#DFE3FA",
+
+          "&:hover": {
+            background: mode === "light" ? "#252945" : "#FFFFFF",
+            color: mode === "light" ? "#DFE3FA" : "#7E88C3",
+          },
+        },
+      },
+    },
+  },
   palette: {
     ...basePalette,
     mode,
