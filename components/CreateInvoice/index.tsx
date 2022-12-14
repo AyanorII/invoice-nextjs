@@ -1,12 +1,14 @@
 import { Drawer, Stack, Theme, Typography } from "@mui/material";
 import axios, { AxiosError } from "axios";
+import { UIEvent, useState } from "react";
 import { FormContainer } from "react-hook-form-mui";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import { Invoice, InvoiceStatus, Item } from "../../lib/interfaces";
 import { closeCreateInvoiceMenu } from "../../store/invoicesSlice";
 import { RootState } from "../../store/store";
 import GoBackButton from "../GoBackButton";
-import Actions from "./Actions";
+import Actions from "./Actions/index";
 import ItemList from "./items/ItemList";
 import BillFrom from "./sections/BillFrom";
 import BillTo from "./sections/BillTo";
@@ -71,8 +73,25 @@ const CreateInvoice = (props: Props) => {
     try {
       transformItemsValues(formValues.items);
       const url = `${process.env.NEXT_PUBLIC_API_URL}/invoices`;
-      const response = await axios.post(url, formValues);
-      console.log(response);
+      const createInvoice = axios.post(url, formValues);
+
+      toast.promise(createInvoice, {
+        pending: "Creating invoice...",
+        success: {
+          render({ data }) {
+            return (
+              <Typography>
+                Invoice created successfully with code:{" "}
+                <Typography component="span" fontWeight="bold">
+                  #{data?.data.code}
+                </Typography>
+              </Typography>
+            );
+          },
+        },
+        error: "Error creating invoice, try again later",
+      });
+      handleClose();
     } catch (error) {
       if (error instanceof AxiosError) {
         console.log(error.response?.data);
@@ -80,10 +99,24 @@ const CreateInvoice = (props: Props) => {
     }
   };
 
+  const [isBottomOfPage, setIsBottomOfPage] = useState(false);
+
+  const handleScroll = (e: UIEvent<HTMLDivElement>) => {
+    const drawer = e.target as HTMLDivElement;
+    const difference = drawer.scrollHeight - drawer.scrollTop;
+    const offset = 10;
+    if (difference >= drawer.clientHeight + offset) {
+      setIsBottomOfPage(true);
+    } else {
+      setIsBottomOfPage(false);
+    }
+  };
+
   return (
     <Drawer
       open={isMenuOpen}
       onClose={handleClose}
+      onScrollCapture={handleScroll}
       sx={{
         "& .MuiPaper-root": {
           minWidth: { xs: "100vw", sm: "auto" },
@@ -115,7 +148,7 @@ const CreateInvoice = (props: Props) => {
           <InvoiceInfo />
           <ItemList />
         </Stack>
-        <Actions />
+        <Actions handleClose={handleClose} isBottomOfPage={isBottomOfPage} />
       </FormContainer>
     </Drawer>
   );
