@@ -13,6 +13,7 @@ import ItemList from "./items/ItemList";
 import BillFrom from "./sections/BillFrom";
 import BillTo from "./sections/BillTo";
 import InvoiceInfo from "./sections/InvoiceInfo";
+import { useRouter } from 'next/router';
 
 type Props = {};
 
@@ -20,6 +21,7 @@ interface FormValues extends Omit<Invoice, "_id" | "code" | "paymentDue"> {}
 
 const CreateInvoice = (props: Props) => {
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const isMenuOpen = useSelector(
     (state: RootState) => state.invoices.isCreateInvoiceMenuOpen
@@ -70,6 +72,10 @@ const CreateInvoice = (props: Props) => {
       });
     };
 
+    const refetch = () => {
+      router.replace(router.asPath)
+    }
+
     try {
       transformItemsValues(formValues.items);
       const url = `${process.env.NEXT_PUBLIC_API_URL}/invoices`;
@@ -91,6 +97,7 @@ const CreateInvoice = (props: Props) => {
         },
         error: "Error creating invoice, try again later",
       });
+      refetch()
       handleClose();
     } catch (error) {
       if (error instanceof AxiosError) {
