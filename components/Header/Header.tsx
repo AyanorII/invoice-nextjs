@@ -4,9 +4,7 @@ import AvatarContainer from "./AvatarContainer";
 import Logo from "./Logo";
 import ThemeTogglerButton from "./ThemeTogglerButton";
 
-type Props = {};
-
-const Header = ({}: Props) => {
+const Header = () => {
   return (
     <Stack
       flexDirection={{ xs: "row", lg: "column" }}
@@ -14,6 +12,8 @@ const Header = ({}: Props) => {
       sx={{
         bgcolor: BACKGROUND_COLOR.dark.paper,
         borderTopRightRadius: { lg: "20px" },
+        position: { lg: "sticky" },
+        top: 0,
       }}
     >
       <Logo />

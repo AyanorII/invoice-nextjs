@@ -20,6 +20,13 @@ declare module "@mui/material/styles/createPalette" {
       background?: string;
     }
   }
+
+  export interface Palette {
+    draft: {
+      main: string;
+      background: string;
+    }
+  }
 }
 
 declare module "@mui/material" {

@@ -23,7 +23,9 @@ const Layout = ({ children }: Props) => {
       <Stack
         flexDirection={{ lg: "row" }}
         minHeight="100vh"
-        overflow="hidden"
+        maxHeight="100vh"
+        overflow="auto"
+        paddingBottom={{ xs: 4, lg: 0 }}
         sx={{
           backgroundColor: (theme) => theme.palette.background.default,
         }}

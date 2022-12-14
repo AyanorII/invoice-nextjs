@@ -21,7 +21,7 @@ const NewInvoiceButton = (props: Props) => {
         variant="contained"
         onClick={handleClick}
         startIcon={
-          <AddCircleIcon id="here" sx={{ fontSize: "2rem !important" }} />
+          <AddCircleIcon sx={{ fontSize: "2rem !important" }} />
         }
       >
         New {isTablet ? "Invoice" : ""}

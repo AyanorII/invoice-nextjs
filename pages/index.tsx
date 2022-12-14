@@ -26,7 +26,12 @@ const Home: NextPage<Props> = ({ invoices }) => {
   return (
     <Container
       maxWidth="md"
-      sx={{ marginTop: { xs: 4, md: 7, lg: 9 }, flexGrow: 1 }}
+      sx={{
+        marginTop: { xs: 4, md: 7, lg: 9 },
+        flexGrow: 1,
+        height: "100%",
+        marginBottom: { lg: 3 },
+      }}
     >
       <Top numberOfInvoices={invoices.length} />
       {invoices.length === 0 ? (
