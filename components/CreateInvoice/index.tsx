@@ -1,4 +1,4 @@
-import { Button, Drawer, Stack, Theme, Typography } from "@mui/material";
+import { Drawer, Stack, Theme, Typography } from "@mui/material";
 import axios, { AxiosError } from "axios";
 import { FormContainer } from "react-hook-form-mui";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,10 +6,11 @@ import { Invoice, InvoiceStatus, Item } from "../../lib/interfaces";
 import { closeCreateInvoiceMenu } from "../../store/invoicesSlice";
 import { RootState } from "../../store/store";
 import GoBackButton from "../GoBackButton";
-import BillFrom from "./BillFrom";
-import BillTo from "./BillTo";
-import InvoiceInfo from "./InvoiceInfo";
-import ItemList from "./ItemList";
+import Actions from "./Actions";
+import ItemList from "./items/ItemList";
+import BillFrom from "./sections/BillFrom";
+import BillTo from "./sections/BillTo";
+import InvoiceInfo from "./sections/InvoiceInfo";
 
 type Props = {};
 
@@ -63,6 +64,7 @@ const CreateInvoice = (props: Props) => {
       items.forEach((item) => {
         item.price = Number(item.price);
         item.quantity = Number(item.quantity);
+        formValues.total += item.price * item.quantity;
       });
     };
 
@@ -87,9 +89,10 @@ const CreateInvoice = (props: Props) => {
           minWidth: { xs: "100vw", sm: "auto" },
           maxWidth: { sm: "70vw", lg: "40vw" },
           borderRadius: { xs: 0, sm: "0 8px 8px 0" },
-          backgroundColor: (theme: Theme) => theme.palette.background.default,
+          background: (theme: Theme) => theme.palette.background.default,
           alignItems: "start",
           gap: 3,
+          paddingBottom: { xs: 0, sm: 3 },
         },
       }}
     >
@@ -112,9 +115,7 @@ const CreateInvoice = (props: Props) => {
           <InvoiceInfo />
           <ItemList />
         </Stack>
-        <Button type="submit" variant="contained" color="primary">
-          Save & Send
-        </Button>
+        <Actions />
       </FormContainer>
     </Drawer>
   );

@@ -16,7 +16,7 @@ const InvoicesList = ({ invoices }: Props) => {
   );
 
   return (
-    <Stack gap={2}>
+    <Stack gap={2} marginBottom={3}>
       {filteredInvoices.map((invoice: Invoice) => (
         <InvoiceCard key={invoice._id.toString()} invoice={invoice} />
       ))}

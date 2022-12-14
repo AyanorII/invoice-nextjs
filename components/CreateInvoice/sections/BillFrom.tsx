@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 import { useFormState } from "react-hook-form-mui";
-import Input from "../Input";
+import Input from "../../Input";
 import FormSection from "./FormSection";
 
 type Props = {};

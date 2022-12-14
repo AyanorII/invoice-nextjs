@@ -2,8 +2,8 @@ import DeleteIcon from "@mui/icons-material/DeleteForever";
 import { Grid, IconButton, Theme } from "@mui/material";
 import { useEffect } from "react";
 import { FieldError, useFormContext, useWatch } from 'react-hook-form';
-import { ITEM_NAME_PLACEHOLDERS } from "../../lib/constants";
-import Input from "../Input";
+import { ITEM_NAME_PLACEHOLDERS } from "../../../lib/constants";
+import Input from "../../Input";
 
 type Props = {
   index: number;
