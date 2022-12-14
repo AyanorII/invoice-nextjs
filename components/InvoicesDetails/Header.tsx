@@ -6,7 +6,9 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { Invoice } from "../../lib/interfaces";
+import { useSelector } from "react-redux";
+import { Invoice, InvoiceStatus } from "../../lib/interfaces";
+import { RootState } from "../../store/store";
 import StatusButton from "../Invoices/StatusButton";
 import Actions from "./Actions";
 
@@ -22,10 +24,10 @@ const Header = ({ invoice }: Props) => {
   return (
     <Paper sx={{ width: "100%", marginBlock: 3 }}>
       <Stack flexDirection="row" gap={2}>
-        <Status invoice={invoice} />
+        <Status />
         {!isMobile && (
           <Box flexGrow={1} justifySelf="end">
-            <Actions status={invoice.status}/>
+            <Actions />
           </Box>
         )}
       </Stack>
@@ -35,7 +37,11 @@ const Header = ({ invoice }: Props) => {
 
 export default Header;
 
-const Status = ({ invoice }: Props) => {
+const Status = () => {
+  const invoice = useSelector(
+    (state: RootState) => state.invoices.currentInvoice
+  );
+
   return (
     <Stack
       flexDirection="row"
@@ -45,7 +51,7 @@ const Status = ({ invoice }: Props) => {
       gap={3}
     >
       <Typography color="text.secondary">Status</Typography>
-      <StatusButton status={invoice.status} />
+      <StatusButton status={invoice?.status || InvoiceStatus.DRAFT} />
     </Stack>
   );
 };

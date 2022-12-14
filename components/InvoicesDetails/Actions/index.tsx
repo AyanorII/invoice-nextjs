@@ -2,15 +2,22 @@ import { Button, Modal, Paper, Stack, Typography } from "@mui/material";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { InvoiceStatus } from "../../../lib/interfaces";
+import { Invoice, InvoiceStatus } from "../../../lib/interfaces";
+import { setInvoice } from "../../../store/invoicesSlice";
+import { RootState } from "../../../store/store";
 import { buttonStyles, modalStyles } from "./styles";
 
-type Props = {
-  status: InvoiceStatus;
-};
+const Actions = () => {
+  const invoice = useSelector(
+    (state: RootState) => state.invoices.currentInvoice
+  );
+  const status = invoice?.status || InvoiceStatus.DRAFT;
 
-const Actions = ({ status }: Props) => {
+  const { query } = useRouter();
+  const { code } = query;
+
   return (
     <Stack
       flexDirection="row"
@@ -18,16 +25,22 @@ const Actions = ({ status }: Props) => {
       justifyContent={{ xs: "center", sm: "end" }}
       gap={2}
     >
-      {status === InvoiceStatus.DRAFT && <EditButton />}
-      <DeleteButton />
-      {status !== InvoiceStatus.PAID && <MarkAsPaidButton />}
+      {status === InvoiceStatus.DRAFT && <EditButton code={code as string} />}
+      <DeleteButton code={code as string} />
+      {status !== InvoiceStatus.PAID && (
+        <MarkAsPaidButton code={code as string} />
+      )}
     </Stack>
   );
 };
 
 export default Actions;
 
-const EditButton = () => {
+type ButtonProps = {
+  code: Invoice["code"];
+};
+
+const EditButton = ({ code }: ButtonProps) => {
   // TODO: Implement functionality
   return (
     <Button variant="contained" color="info">
@@ -36,14 +49,13 @@ const EditButton = () => {
   );
 };
 
-const DeleteButton = () => {
+const DeleteButton = ({ code }: ButtonProps) => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const { query, push } = useRouter();
-  const { code } = query;
+  const { push } = useRouter();
 
   const handleDelete = async () => {
     const url = `${process.env.NEXT_PUBLIC_API_URL}/invoices/${code}`;
@@ -105,10 +117,29 @@ const DeleteButton = () => {
   );
 };
 
-const MarkAsPaidButton = () => {
-  // TODO: Implement functionality
+const MarkAsPaidButton = ({ code }: ButtonProps) => {
+  const dispatch = useDispatch();
+
+  const handleMarkAsPaid = async () => {
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/invoices/${code}`;
+
+    try {
+      const response = await axios.patch(url, { status: InvoiceStatus.PAID });
+      const invoice = response.data;
+      toast.success(`Invoice #${code} was marked as paid`);
+      dispatch(setInvoice(invoice));
+    } catch (error) {
+      toast.error("Something went wrong, try again later");
+    }
+  };
+
   return (
-    <Button variant="contained" color="primary" sx={buttonStyles}>
+    <Button
+      onClick={handleMarkAsPaid}
+      variant="contained"
+      color="primary"
+      sx={buttonStyles}
+    >
       Mark as Paid
     </Button>
   );

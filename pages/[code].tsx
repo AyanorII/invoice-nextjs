@@ -1,11 +1,14 @@
 import { Box, Container, Theme, useMediaQuery } from "@mui/material";
 import axios from "axios";
 import { GetServerSideProps, NextPage } from "next";
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import GoBackButton from "../components/GoBackButton";
 import Actions from "../components/InvoicesDetails/Actions";
 import Header from "../components/InvoicesDetails/Header";
 import Info from "../components/InvoicesDetails/Info";
 import { Invoice } from "../lib/interfaces";
+import { setInvoice } from "../store/invoicesSlice";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const code = context!.params!.code;
@@ -26,6 +29,12 @@ type Props = {
 };
 
 const InvoiceDetailsPage: NextPage<Props> = ({ invoice }) => {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(setInvoice(invoice))
+  }, [invoice])
+
   const isMobile = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down("sm")
   );
@@ -53,7 +62,7 @@ const InvoiceDetailsPage: NextPage<Props> = ({ invoice }) => {
             backgroundColor: (theme: Theme) => theme.palette.background.paper,
           }}
         >
-          <Actions status={invoice.status}/>
+          <Actions/>
         </Box>
       )}
     </>

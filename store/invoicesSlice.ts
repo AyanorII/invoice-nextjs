@@ -1,14 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { InvoiceStatus } from "../lib/interfaces";
+import { Invoice, InvoiceStatus } from "../lib/interfaces";
 
 export interface InvoiceState {
   filters: InvoiceStatus[];
   isCreateInvoiceMenuOpen: boolean;
+  currentInvoice: Invoice | null;
 }
 
 const initialState: InvoiceState = {
   filters: [],
   isCreateInvoiceMenuOpen: false,
+  currentInvoice: null,
 };
 
 const invoicesSlice = createSlice({
@@ -21,15 +23,25 @@ const invoicesSlice = createSlice({
         ? state.filters.filter((status) => status !== filterOption)
         : [...state.filters, filterOption];
     },
+
     toggleCreateInvoiceMenu: (state) => {
       state.isCreateInvoiceMenuOpen = !state.isCreateInvoiceMenuOpen;
     },
+
     closeCreateInvoiceMenu: (state) => {
       state.isCreateInvoiceMenuOpen = false;
+    },
+
+    setInvoice: (state, action: PayloadAction<Invoice>) => {
+      state.currentInvoice = action.payload;
     },
   },
 });
 
-export const { setFilters, toggleCreateInvoiceMenu, closeCreateInvoiceMenu } =
-  invoicesSlice.actions;
+export const {
+  setFilters,
+  toggleCreateInvoiceMenu,
+  closeCreateInvoiceMenu,
+  setInvoice,
+} = invoicesSlice.actions;
 export default invoicesSlice.reducer;
