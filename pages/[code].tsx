@@ -53,7 +53,7 @@ const InvoiceDetailsPage: NextPage<Props> = ({ invoice }) => {
             backgroundColor: (theme: Theme) => theme.palette.background.paper,
           }}
         >
-          <Actions />
+          <Actions status={invoice.status}/>
         </Box>
       )}
     </>

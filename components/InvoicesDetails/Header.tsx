@@ -25,7 +25,7 @@ const Header = ({ invoice }: Props) => {
         <Status invoice={invoice} />
         {!isMobile && (
           <Box flexGrow={1} justifySelf="end">
-            <Actions />
+            <Actions status={invoice.status}/>
           </Box>
         )}
       </Stack>

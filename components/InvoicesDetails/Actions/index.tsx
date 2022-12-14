@@ -1,20 +1,16 @@
-import {
-  Button,
-  Modal,
-  Paper,
-  Stack,
-  SxProps,
-  Typography,
-} from "@mui/material";
+import { Button, Modal, Paper, Stack, Typography } from "@mui/material";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { buttonStyles, modalStyles } from './styles';
+import { InvoiceStatus } from "../../../lib/interfaces";
+import { buttonStyles, modalStyles } from "./styles";
 
-type Props = {};
+type Props = {
+  status: InvoiceStatus;
+};
 
-const Actions = (props: Props) => {
+const Actions = ({ status }: Props) => {
   return (
     <Stack
       flexDirection="row"
@@ -22,15 +18,14 @@ const Actions = (props: Props) => {
       justifyContent={{ xs: "center", sm: "end" }}
       gap={2}
     >
-      <EditButton />
+      {status === InvoiceStatus.DRAFT && <EditButton />}
       <DeleteButton />
-      <MarkAsPaidButton />
+      {status !== InvoiceStatus.PAID && <MarkAsPaidButton />}
     </Stack>
   );
 };
 
 export default Actions;
-
 
 const EditButton = () => {
   // TODO: Implement functionality
