@@ -26,7 +26,13 @@ const AddItem = ({ index, errors, handleDelete }: Props) => {
   const price = (useWatch({name: `items.${index}.price`}))
 
   // Material UI allows the letter "e" as number so it's necessary to remove it in order for the "total" field does not become "0" when the letter is present in either "quantity" or "price"
-  const total = Number(String(quantity).replace("e", "")) * Number(String(price).replace("e", ""))
+  // if (quantity === )
+  let total = Number(String(quantity).replace("e", "")) * Number(String(price).replace("e", ""))
+
+  // Necessary when user presses "Discard" button
+  if (Number.isNaN(total)) {
+    total = 0
+  }
 
   const setTotal = () => {setValue(`items.${index}.total`, total)}
 

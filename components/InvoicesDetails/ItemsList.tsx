@@ -1,13 +1,13 @@
 import { Grid, Paper, Stack, SxProps, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
-import { getFormattedPrice } from '../../lib/helpers';
+import { getFormattedPrice } from "../../lib/helpers";
 import { Item } from "../../lib/interfaces";
 import { RootState } from "../../store/store";
 import InvoiceItem from "./InvoiceItem";
 
 type Props = {
   items: Item[];
-  total: number
+  total: number;
 };
 
 const ItemsList = ({ items, total }: Props) => {
@@ -30,7 +30,7 @@ const ItemsList = ({ items, total }: Props) => {
           </div>
         ))}
       </Stack>
-      <Total total={total}/>
+      <Total total={total} />
     </Paper>
   );
 };
@@ -84,16 +84,19 @@ const Total = ({ total }: TotalProps) => {
       justifyContent="space-between"
       alignItems="center"
       flexDirection="row"
+      color="white"
       sx={{
         backgroundColor: themeMode === "dark" ? "#0C0E16" : "#373B53",
-        padding: {xs: 3, sm: 4},
-        marginInline: {xs: -3, sm: -4},
-        marginBottom: {xs: -3, sm: -4},
-        marginTop: 3
+        padding: { xs: 3, sm: 4 },
+        marginInline: { xs: -3, sm: -4 },
+        marginBottom: { xs: -3, sm: -4 },
+        marginTop: 3,
       }}
     >
       <Typography>Amount Due</Typography>
-      <Typography variant="h5" fontWeight="bold">{getFormattedPrice(total)}</Typography>
+      <Typography variant="h5" fontWeight="bold">
+        {getFormattedPrice(total)}
+      </Typography>
     </Stack>
   );
 };
