@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 type Props = {
   email: string;
@@ -6,14 +6,14 @@ type Props = {
 
 const SentTo = ({ email }: Props) => {
   return (
-    <div>
+    <Box sx={{ overflowWrap: "break-word" }}>
       <Typography color="text.secondary" gutterBottom>
         Sent To
       </Typography>
-      <Typography variant="h5" fontWeight="bold">
+      <Typography variant="h6" fontWeight="bold">
         {email}
       </Typography>
-    </div>
+    </Box>
   );
 };
 
