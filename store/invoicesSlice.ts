@@ -20,9 +20,9 @@ const defaultInvoice: Omit<Invoice, "_id"> = {
       country: "",
     },
   },
-  createdAt: new Date(),
+  createdAt: new Date().toISOString(),
   paymentTerms: 7,
-  paymentDue: new Date(),
+  paymentDue: new Date().toISOString(),
   description: "",
   items: [
     {

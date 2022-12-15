@@ -1,7 +1,5 @@
 import { Drawer, Stack, Theme, Typography } from "@mui/material";
-import axios, { AxiosError } from "axios";
-import { randomUUID } from "crypto";
-import { ObjectID, ObjectId } from "mongodb";
+import axios from "axios";
 import { useRouter } from "next/router";
 import { UIEvent, useEffect, useRef, useState } from "react";
 import { FormContainer } from "react-hook-form-mui";
@@ -38,7 +36,7 @@ const InvoiceMenu = (props: Props) => {
     dispatch(closeInvoiceMenu());
   };
 
-  let defaultValues = useRef<FormValues>({
+  const defaultValues = useRef<FormValues>({
     status: InvoiceStatus.DRAFT,
     sender: {
       street: "",
@@ -56,7 +54,7 @@ const InvoiceMenu = (props: Props) => {
         country: "",
       },
     },
-    createdAt: new Date(),
+    createdAt: new Date().toISOString(),
     paymentTerms: 7,
     description: "",
     items: [
@@ -69,14 +67,16 @@ const InvoiceMenu = (props: Props) => {
     ],
     total: 0,
   });
+
   useEffect(() => {
     if (isEditing && currentInvoice) {
-      defaultValues.current = currentInvoice;
+      defaultValues.current = currentInvoice
     }
   }, [isEditing, currentInvoice]);
 
   const handleSubmit = async (formValues: FormValues) => {
     const transformItemsValues = (items: Item[]) => {
+      formValues.total = 0;
       items.forEach((item) => {
         item.price = Number(item.price);
         item.quantity = Number(item.quantity);
@@ -107,7 +107,7 @@ const InvoiceMenu = (props: Props) => {
       toast.success(
         <Typography>
           {message}
-          {isEditing && (
+          {!isEditing && (
             <Typography component="span" fontWeight="bold">
               #{invoice.code}
             </Typography>

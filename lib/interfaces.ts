@@ -23,29 +23,29 @@ export interface Address {
 
 export interface Client {
   _id?: ObjectId;
-  name: string
-  email: string
-  address: Address
+  name: string;
+  email: string;
+  address: Address;
 }
 export interface Item {
   _id?: ObjectId;
-  name: string
-  quantity: number
-  price: number
-  total: number
+  name: string;
+  quantity: number;
+  price: number;
+  total: number;
 }
 export interface Invoice {
-  _id: ObjectId
-  code: string
-  description: string
-  paymentTerms: InvoicePaymentTerms,
-  status: InvoiceStatus
-  total: number
-  paymentDue: Date
-  client: Client
-  sender: Address
-  createdAt: Date
-  items: Item[]
+  _id: ObjectId;
+  code: string;
+  description: string;
+  paymentTerms: InvoicePaymentTerms;
+  status: InvoiceStatus;
+  total: number;
+  paymentDue: string;
+  client: Client;
+  sender: Address;
+  createdAt: string;
+  items: Item[];
 }
 export interface SelectOption {
   id: number;
@@ -64,4 +64,4 @@ export interface InputProps {
   onChange?: (e: any) => void;
   readonly?: boolean;
   readonlyValue?: string | number;
-};
+}
