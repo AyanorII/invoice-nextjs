@@ -62,4 +62,6 @@ export interface InputProps {
   disabled?: boolean;
   value?: string | number | Date;
   onChange?: (e: any) => void;
+  readonly?: boolean;
+  readonlyValue?: string | number;
 };

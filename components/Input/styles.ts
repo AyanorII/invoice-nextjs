@@ -1,13 +1,15 @@
 import { SxProps, Theme } from "@mui/material";
 import { TEXT_COLOR } from "../../lib/constants";
 
-export const inputStyles: SxProps<Theme> = {
-  "& .MuiInputBase-input": {
+const baseStyles: SxProps<Theme> = {
     backgroundColor: (theme: Theme): string => theme.palette.background.paper,
     color: (theme: Theme) => theme.palette.text.primary,
     fontWeight: "bold",
     borderRadius: "4px",
-  },
+  }
+
+export const inputStyles: SxProps<Theme> = {
+  "& .MuiInputBase-input": baseStyles,
 };
 
 export const outlineInputStyles: SxProps<Theme> = {
@@ -61,3 +63,10 @@ export const selectStyles: SxProps<Theme> = {
   padding: 0,
   ...textFieldStyles,
 }
+
+export const readonlyInputStyles: SxProps<Theme> = {
+  ...baseStyles,
+  height: "56px",
+  padding: 2,
+  color: (theme: Theme) => `${theme.palette.text.secondary}75`,
+};

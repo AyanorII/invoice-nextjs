@@ -7,7 +7,12 @@ import {
   TextFieldElement,
 } from "react-hook-form-mui";
 import { InputProps } from "../../lib/interfaces";
-import { datePickerStyles, selectStyles, textFieldStyles } from "./styles";
+import {
+  datePickerStyles,
+  readonlyInputStyles,
+  selectStyles,
+  textFieldStyles,
+} from "./styles";
 
 const Input = ({
   label,
@@ -18,23 +23,28 @@ const Input = ({
   options,
   disabled,
   onChange,
+  readonly,
+  readonlyValue,
 }: InputProps) => {
   return (
     <Box position="relative">
-      <InputLabel error={error} sx={{ fontWeight: "bold" }}>
+      <InputLabel error={error} sx={{ fontWeight: "bold", marginBottom: 1 }}>
         {label}
       </InputLabel>
-      {(type === "text" || type === "number") && (
-        <TextInput
-          name={name}
-          placeholder={placeholder}
-          disabled={disabled}
-          type={type}
-          onChange={onChange}
-        />
-      )}
-      {type === "date" && <DatePicker name={name} disabled={disabled} />}
-      {type === "select" && <SelectInput name={name} options={options} />}
+      {readonly && readonlyValue && <ReadOnlyInput readonlyValue={readonlyValue} />}
+      <Box display={readonly ? "none" : "block"}>
+        {(type === "text" || type === "number") && (
+          <TextInput
+            name={name}
+            placeholder={placeholder}
+            disabled={disabled}
+            type={type}
+            onChange={onChange}
+          />
+        )}
+        {type === "date" && <DatePicker name={name} disabled={disabled} />}
+        {type === "select" && <SelectInput name={name} options={options} />}
+      </Box>
     </Box>
   );
 };
@@ -86,4 +96,10 @@ type SelectInputProps = Pick<InputProps, "name" | "options">;
 
 const SelectInput = ({ name, options }: SelectInputProps) => {
   return <SelectElement name={name} options={options} sx={selectStyles} />;
+};
+
+const ReadOnlyInput = ({
+  readonlyValue,
+}: Pick<InputProps, "readonlyValue">) => {
+  return <Box sx={readonlyInputStyles}>{readonlyValue}</Box>;
 };

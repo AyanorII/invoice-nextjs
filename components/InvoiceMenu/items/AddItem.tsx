@@ -1,8 +1,9 @@
 import DeleteIcon from "@mui/icons-material/DeleteForever";
-import { Grid, IconButton, Theme } from "@mui/material";
+import { Box, Grid, IconButton, Theme } from "@mui/material";
 import { useEffect } from "react";
 import { FieldError, useFormContext, useWatch } from 'react-hook-form';
 import { ITEM_NAME_PLACEHOLDERS } from "../../../lib/constants";
+import { getFormattedPrice } from "../../../lib/helpers";
 import Input from "../../Input";
 
 type Props = {
@@ -85,6 +86,8 @@ const AddItem = ({ index, errors, handleDelete }: Props) => {
       {/* ----------------------------- Total ----------------------------- */}
       <Grid item xs={4}>
         <Input
+          readonly
+          readonlyValue={getFormattedPrice(total)}
           name={`items.${index}.total`}
           label="Price"
           type="number"
