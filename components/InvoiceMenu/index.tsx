@@ -1,11 +1,14 @@
 import { Drawer, Stack, Theme, Typography } from "@mui/material";
 import axios, { AxiosError } from "axios";
-import { UIEvent, useState } from "react";
+import { randomUUID } from "crypto";
+import { ObjectID, ObjectId } from "mongodb";
+import { useRouter } from "next/router";
+import { UIEvent, useEffect, useRef, useState } from "react";
 import { FormContainer } from "react-hook-form-mui";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { Invoice, InvoiceStatus, Item } from "../../lib/interfaces";
-import { closeCreateInvoiceMenu } from "../../store/invoicesSlice";
+import { closeInvoiceMenu, setInvoice } from "../../store/invoicesSlice";
 import { RootState } from "../../store/store";
 import GoBackButton from "../GoBackButton";
 import Actions from "./Actions/index";
@@ -13,25 +16,29 @@ import ItemList from "./items/ItemList";
 import BillFrom from "./sections/BillFrom";
 import BillTo from "./sections/BillTo";
 import InvoiceInfo from "./sections/InvoiceInfo";
-import { useRouter } from 'next/router';
 
 type Props = {};
 
 interface FormValues extends Omit<Invoice, "_id" | "code" | "paymentDue"> {}
 
-const CreateInvoice = (props: Props) => {
+const InvoiceMenu = (props: Props) => {
   const dispatch = useDispatch();
   const router = useRouter();
 
+  const isEditing = router.pathname === "/[code]";
+
   const isMenuOpen = useSelector(
-    (state: RootState) => state.invoices.isCreateInvoiceMenuOpen
+    (state: RootState) => state.invoices.isInvoiceMenuOpen
+  );
+  const currentInvoice = useSelector(
+    (state: RootState) => state.invoices.currentInvoice
   );
 
   const handleClose = () => {
-    dispatch(closeCreateInvoiceMenu());
+    dispatch(closeInvoiceMenu());
   };
 
-  const defaultValues: FormValues = {
+  let defaultValues = useRef<FormValues>({
     status: InvoiceStatus.DRAFT,
     sender: {
       street: "",
@@ -61,7 +68,12 @@ const CreateInvoice = (props: Props) => {
       },
     ],
     total: 0,
-  };
+  });
+  useEffect(() => {
+    if (isEditing && currentInvoice) {
+      defaultValues.current = currentInvoice;
+    }
+  }, [isEditing, currentInvoice]);
 
   const handleSubmit = async (formValues: FormValues) => {
     const transformItemsValues = (items: Item[]) => {
@@ -73,36 +85,44 @@ const CreateInvoice = (props: Props) => {
     };
 
     const refetch = () => {
-      router.replace(router.asPath)
-    }
+      router.replace(router.asPath);
+    };
 
     try {
       transformItemsValues(formValues.items);
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/invoices`;
-      const createInvoice = axios.post(url, formValues);
+      const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+      const url = isEditing
+        ? `${baseUrl}/invoices/${currentInvoice?.code}`
+        : `${baseUrl}/invoices`;
 
-      toast.promise(createInvoice, {
-        pending: "Creating invoice...",
-        success: {
-          render({ data }) {
-            return (
-              <Typography>
-                Invoice created successfully with code:{" "}
-                <Typography component="span" fontWeight="bold">
-                  #{data?.data.code}
-                </Typography>
-              </Typography>
-            );
-          },
-        },
-        error: "Error creating invoice, try again later",
-      });
-      refetch()
+      const method = isEditing ? "patch" : "post";
+
+      const response = await axios[method](url, formValues);
+      const invoice = response.data;
+
+      const message = isEditing
+        ? "Invoice updated successfully"
+        : "Invoice created successfully with code: ";
+
+      toast.success(
+        <Typography>
+          {message}
+          {isEditing && (
+            <Typography component="span" fontWeight="bold">
+              #{invoice.code}
+            </Typography>
+          )}
+        </Typography>
+      );
+      refetch();
       handleClose();
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        console.log(error.response?.data);
+      if (isEditing) {
+        dispatch(setInvoice(invoice));
       }
+    } catch (error) {
+      toast.error(
+        `Error ${isEditing ? "editing" : "creating"} invoice, try again later`
+      );
     }
   };
 
@@ -138,27 +158,29 @@ const CreateInvoice = (props: Props) => {
     >
       <GoBackButton onClick={handleClose} />
       <Typography variant="h5" fontWeight="bold">
-        New Invoice
+        {isEditing ? "Edit" : "New"} Invoice
       </Typography>
-      <FormContainer
-        defaultValues={defaultValues}
-        onSuccess={handleSubmit}
-        FormProps={{
-          style: {
-            width: "100%",
-          },
-        }}
-      >
-        <Stack gap={5}>
-          <BillFrom />
-          <BillTo />
-          <InvoiceInfo />
-          <ItemList />
-        </Stack>
-        <Actions handleClose={handleClose} isBottomOfPage={isBottomOfPage} />
-      </FormContainer>
+      {((isEditing && currentInvoice) || !isEditing) && (
+        <FormContainer
+          defaultValues={defaultValues.current}
+          onSuccess={handleSubmit}
+          FormProps={{
+            style: {
+              width: "100%",
+            },
+          }}
+        >
+          <Stack gap={5}>
+            <BillFrom />
+            <BillTo />
+            <InvoiceInfo />
+            <ItemList />
+          </Stack>
+          <Actions handleClose={handleClose} isBottomOfPage={isBottomOfPage} />
+        </FormContainer>
+      )}
     </Drawer>
   );
 };
 
-export default CreateInvoice;
+export default InvoiceMenu;

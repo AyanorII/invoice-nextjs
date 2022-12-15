@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { Invoice, InvoiceStatus } from "../../../lib/interfaces";
-import { setInvoice } from "../../../store/invoicesSlice";
+import { setInvoice, toggleInvoiceMenu } from "../../../store/invoicesSlice";
 import { RootState } from "../../../store/store";
 import { buttonStyles, modalStyles } from "./styles";
 
@@ -41,9 +41,14 @@ type ButtonProps = {
 };
 
 const EditButton = ({ code }: ButtonProps) => {
-  // TODO: Implement functionality
+  const dispatch = useDispatch();
+
+  const handleOpen = () => {
+    dispatch(toggleInvoiceMenu());
+  }
+
   return (
-    <Button variant="contained" color="info">
+    <Button onClick={handleOpen} variant="contained" color="info">
       Edit
     </Button>
   );

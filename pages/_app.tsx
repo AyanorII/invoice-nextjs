@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import InvoiceMenu from "../components/InvoiceMenu";
 import Layout from "../components/Layout";
 import ThemeProvider from "../components/ThemeProvider";
 import { store } from "../store/store";
@@ -15,6 +16,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <CssBaseline />
         <Layout>
           <Component {...pageProps} />
+          <InvoiceMenu />
         </Layout>
         <ToastContainer
           position="bottom-right"

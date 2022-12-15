@@ -1,16 +1,50 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Invoice, InvoiceStatus } from "../lib/interfaces";
 
+const defaultInvoice: Omit<Invoice, "_id"> = {
+  code: "XX0000",
+  status: InvoiceStatus.DRAFT,
+  sender: {
+    street: "",
+    city: "",
+    postCode: "",
+    country: "",
+  },
+  client: {
+    name: "",
+    email: "",
+    address: {
+      street: "",
+      city: "",
+      postCode: "",
+      country: "",
+    },
+  },
+  createdAt: new Date(),
+  paymentTerms: 7,
+  paymentDue: new Date(),
+  description: "",
+  items: [
+    {
+      name: "",
+      quantity: 1,
+      price: 0,
+      total: 0,
+    },
+  ],
+  total: 0,
+};
+
 export interface InvoiceState {
   filters: InvoiceStatus[];
-  isCreateInvoiceMenuOpen: boolean;
-  currentInvoice: Invoice | null;
+  isInvoiceMenuOpen: boolean;
+  currentInvoice: Invoice | typeof defaultInvoice;
 }
 
 const initialState: InvoiceState = {
   filters: [],
-  isCreateInvoiceMenuOpen: false,
-  currentInvoice: null,
+  isInvoiceMenuOpen: false,
+  currentInvoice: defaultInvoice,
 };
 
 const invoicesSlice = createSlice({
@@ -24,12 +58,12 @@ const invoicesSlice = createSlice({
         : [...state.filters, filterOption];
     },
 
-    toggleCreateInvoiceMenu: (state) => {
-      state.isCreateInvoiceMenuOpen = !state.isCreateInvoiceMenuOpen;
+    toggleInvoiceMenu: (state) => {
+      state.isInvoiceMenuOpen = !state.isInvoiceMenuOpen;
     },
 
-    closeCreateInvoiceMenu: (state) => {
-      state.isCreateInvoiceMenuOpen = false;
+    closeInvoiceMenu: (state) => {
+      state.isInvoiceMenuOpen = false;
     },
 
     setInvoice: (state, action: PayloadAction<Invoice>) => {
@@ -38,10 +72,6 @@ const invoicesSlice = createSlice({
   },
 });
 
-export const {
-  setFilters,
-  toggleCreateInvoiceMenu,
-  closeCreateInvoiceMenu,
-  setInvoice,
-} = invoicesSlice.actions;
+export const { setFilters, toggleInvoiceMenu, closeInvoiceMenu, setInvoice } =
+  invoicesSlice.actions;
 export default invoicesSlice.reducer;
