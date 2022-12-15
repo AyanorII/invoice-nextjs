@@ -1,10 +1,9 @@
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { Button, Theme, useMediaQuery } from '@mui/material';
-import { useDispatch } from 'react-redux';
-import { toggleCreateInvoiceMenu } from '../../store/invoicesSlice';
-import CreateInvoice from '../CreateInvoice';
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { Button, Theme, useMediaQuery } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { toggleInvoiceMenu } from "../../store/invoicesSlice";
 
-type Props = {}
+type Props = {};
 
 const NewInvoiceButton = (props: Props) => {
   const dispatch = useDispatch();
@@ -12,23 +11,20 @@ const NewInvoiceButton = (props: Props) => {
   const isTablet = useMediaQuery((theme: Theme) => theme.breakpoints.up("sm"));
 
   const handleClick = () => {
-    dispatch(toggleCreateInvoiceMenu())
-  }
+    dispatch(toggleInvoiceMenu());
+  };
 
   return (
     <>
       <Button
         variant="contained"
         onClick={handleClick}
-        startIcon={
-          <AddCircleIcon sx={{ fontSize: "2rem !important" }} />
-        }
+        startIcon={<AddCircleIcon sx={{ fontSize: "2rem !important" }} />}
       >
         New {isTablet ? "Invoice" : ""}
       </Button>
-      <CreateInvoice />
     </>
   );
-}
+};
 
-export default NewInvoiceButton
+export default NewInvoiceButton;

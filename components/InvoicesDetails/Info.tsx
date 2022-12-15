@@ -1,5 +1,6 @@
 import { Grid, Paper, Stack, Typography } from "@mui/material";
-import { Invoice } from "../../lib/interfaces";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 import InvoiceCode from "../Invoices/InvoiceCode";
 import AddressInfo from "./AddressInfo";
 import BillTo from "./BillTo";
@@ -7,11 +8,11 @@ import DateInfo from "./DateInfo";
 import ItemsList from "./ItemsList";
 import SentTo from "./SentTo";
 
-type Props = {
-  invoice: Invoice;
-};
+const Info = () => {
+  const invoice = useSelector(
+    (state: RootState) => state.invoices.currentInvoice
+  );
 
-const Info = ({ invoice }: Props) => {
   const {
     code,
     description,
