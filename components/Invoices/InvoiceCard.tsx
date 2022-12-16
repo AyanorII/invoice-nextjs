@@ -12,7 +12,8 @@ type Props = {
 
 const InvoiceCard = ({ invoice }: Props) => {
   const { code, client, status, total } = invoice;
-  const paymentDue = getFormattedDate(invoice.paymentDue);
+  const paymentDate = new Date(invoice.paymentDue);
+  const paymentDue = getFormattedDate(paymentDate);
 
   const gridAreas = `"code       client"
                        "paymentDue status"
