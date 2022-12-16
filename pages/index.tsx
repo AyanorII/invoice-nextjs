@@ -1,6 +1,7 @@
-import { Container } from "@mui/material";
+import { Container, SxProps, Theme } from "@mui/material";
 import axios from "axios";
 import type { GetServerSideProps, NextPage } from "next";
+import Head from "../components/Head";
 import InvoicesList from "../components/Invoices/InvoicesList";
 import NoInvoices from "../components/NoInvoices";
 import Top from "../components/Top";
@@ -23,23 +24,25 @@ type Props = {
 };
 
 const Home: NextPage<Props> = ({ invoices }) => {
+  const containerStyles: SxProps<Theme> = {
+    marginTop: { xs: 4, md: 7, lg: 9 },
+    flexGrow: 1,
+    height: "100%",
+    marginBottom: { lg: 3 },
+  };
+
   return (
-    <Container
-      maxWidth="md"
-      sx={{
-        marginTop: { xs: 4, md: 7, lg: 9 },
-        flexGrow: 1,
-        height: "100%",
-        marginBottom: { lg: 3 },
-      }}
-    >
-      <Top numberOfInvoices={invoices.length} />
-      {invoices.length === 0 ? (
-        <NoInvoices />
-      ) : (
-        <InvoicesList invoices={invoices} />
-      )}
-    </Container>
+    <>
+      <Head title="Invoice App | Ayanori Toyoda" />
+      <Container maxWidth="md" sx={containerStyles}>
+        <Top numberOfInvoices={invoices.length} />
+        {invoices.length === 0 ? (
+          <NoInvoices />
+        ) : (
+          <InvoicesList invoices={invoices} />
+        )}
+      </Container>
+    </>
   );
 };
 

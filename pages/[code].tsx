@@ -4,6 +4,7 @@ import { GetServerSideProps, NextPage } from "next";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import GoBackButton from "../components/GoBackButton";
+import Head from "../components/Head";
 import Actions from "../components/InvoicesDetails/Actions";
 import Header from "../components/InvoicesDetails/Header";
 import Info from "../components/InvoicesDetails/Info";
@@ -41,6 +42,7 @@ const InvoiceDetailsPage: NextPage<Props> = ({ invoice }) => {
 
   return (
     <>
+      <Head title={`Invoice #${invoice.code} | Invoice App | Ayanori Toyoda`} />
       <Container
         maxWidth="md"
         sx={{ marginBlock: { xs: "2rem 8rem", sm: "2rem 4rem" } }}
