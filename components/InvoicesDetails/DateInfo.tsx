@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import { getFormattedDate } from "../../lib/helpers";
 
-type Props = { label: string; date: Date };
+type Props = { label: string; date: string };
 
 const DateInfo = ({ label, date }: Props) => {
   return (
@@ -14,7 +14,7 @@ const DateInfo = ({ label, date }: Props) => {
         {label}
       </Typography>
       <Typography variant="h5" textTransform="capitalize" fontWeight="bold">
-        {getFormattedDate(date)}
+        {getFormattedDate(new Date(date))}
       </Typography>
     </div>
   );

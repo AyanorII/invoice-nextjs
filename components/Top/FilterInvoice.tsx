@@ -35,6 +35,9 @@ const FilterInvoice = (props: Props) => {
           "& .MuiList-root": {
             paddingInline: 2,
           },
+          "& .MuiPaper-root": {
+            padding: 1
+          }
         }}
       >
         <FilterOptionsList />

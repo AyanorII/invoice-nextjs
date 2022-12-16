@@ -30,6 +30,7 @@ const StatusButton = ({ status }: Props) => {
     border: "none",
     overflow: "hidden",
     position: "relative",
+    cursor: "default",
     minWidth: "106px",
     "&:before": {
       content: "''",
@@ -47,7 +48,7 @@ const StatusButton = ({ status }: Props) => {
   };
 
   return (
-    <Button sx={buttonStyles}>
+    <Button sx={buttonStyles} disableRipple disableElevation>
       <Dot color={getColor("main")} />
       <Typography variant="body1" fontWeight="bold" sx={typographyStyles}>
         {status}

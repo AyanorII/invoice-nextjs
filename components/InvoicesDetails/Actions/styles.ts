@@ -10,11 +10,10 @@ export const modalStyles: SxProps<Theme> = {
     sm: 450,
   }),
   bgcolor: "background.paper",
-  border: "2px solid #000",
   boxShadow: 24,
   p: 4,
 };
 
 export const buttonStyles: SxProps = {
-  padding: "0.75rem 1rem",
+  padding: "0.75rem 1.25rem",
 };

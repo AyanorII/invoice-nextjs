@@ -45,10 +45,15 @@ const EditButton = ({ code }: ButtonProps) => {
 
   const handleOpen = () => {
     dispatch(toggleInvoiceMenu());
-  }
+  };
 
   return (
-    <Button onClick={handleOpen} variant="contained" color="info">
+    <Button
+      onClick={handleOpen}
+      variant="contained"
+      color="info"
+      sx={buttonStyles}
+    >
       Edit
     </Button>
   );
